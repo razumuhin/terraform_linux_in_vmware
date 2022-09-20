@@ -1,7 +1,3 @@
-variable "public_key_path"{
-    type = string
-}
-
 variable "admin_user_name"{
     type = string
 }
