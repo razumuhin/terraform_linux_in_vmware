@@ -1,4 +1,3 @@
-public_key_path = "terraform-test.pub"
 #CREATE VM USER TEMPLATE
 admin_user_name = "template"
 #tEMPLATE USER PASSWORD
