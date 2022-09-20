@@ -2,10 +2,6 @@ variable "public_key_path"{
     type = string
 }
 
-variable "create_ssh_folder_script_path"{
-    type = string
-}
-
 variable "admin_user_name"{
     type = string
 }
