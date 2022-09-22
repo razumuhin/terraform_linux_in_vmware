@@ -1,60 +1,59 @@
 provider "vsphere" {
-  user           = var.user_name
-  password       = var.password
-  vsphere_server = var.vsphere_server_name
+  user           = var.provider_user_name[terraform.workspace]
+  password       = var.provider_password[terraform.workspace]
+  vsphere_server = var.vsphere_server_name[terraform.workspace]
 
   # If you have a self-signed cert
   allow_unverified_ssl = true
 }
 data "vsphere_datacenter" "dc" {
-  name = "VMWARE DATA CENTER NAME"
+  name = var.datacenter[terraform.workspace]
 }
 
 data "vsphere_datastore_cluster" "datastore_cluster" {
-  name          = "VMWARE DATASTORE CLUSETER NAME"
+  name          = var.datastore_cluster[terraform.workspace]
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
-data "vsphere_datastore" "lun1" {
-  name          = "VMWARE lun NAME IN YOUR VMWARE DATASTORE CLUSTER"
+data "vsphere_datastore" "lun01" {
+  name          = var.datastore[terraform.workspace]
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
 data "vsphere_resource_pool" "pool" {
-  name          = "RESORUCE PO0L NAME  "
+  name          = var.resource_pool[terraform.workspace]
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
 data "vsphere_network" "network" {
-  name          = "NETWORK NAME IN YOUR VMWARE "
+  name          = var.network[terraform.workspace]
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
 data "vsphere_virtual_machine" "template" {
-  name          = "LINUX TEMPLATE NAME IN YOUR VMWARE "
+  name          = "TEMPLATE_NAME IN YOUR VMWARE TEMPLATE FOLDER"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
 resource "vsphere_virtual_machine" "vm" {
-  count = var.instance_count
-  
-  name             = "VMNAME -${count.index + 1}"
+  count = var.instance_count[terraform.workspace]
+  name             = "${var.vm_name_prefix[terraform.workspace]}-${count.index + 1}"
   resource_pool_id = data.vsphere_resource_pool.pool.id
   datastore_cluster_id = data.vsphere_datastore_cluster.datastore_cluster.id
-  folder           = "VMWARE FOLDER NAME"
-  num_cpus = 1
-  memory   = 1024
+  folder           = var.vm_folder[terraform.workspace]
+  num_cpus = var.num_of_cpus[terraform.workspace]
+  memory   = var.memory_size[terraform.workspace]
   guest_id = data.vsphere_virtual_machine.template.guest_id
-
   scsi_type = data.vsphere_virtual_machine.template.scsi_type
 
   network_interface {
     network_id   = data.vsphere_network.network.id
     adapter_type = data.vsphere_virtual_machine.template.network_interface_types[0]
+    
   }
 
   disk {
-    label            = "disk0"
+    label            = var.disk_label[terraform.workspace]
     size             = data.vsphere_virtual_machine.template.disks.0.size
     eagerly_scrub    = data.vsphere_virtual_machine.template.disks.0.eagerly_scrub
     thin_provisioned = data.vsphere_virtual_machine.template.disks.0.thin_provisioned
@@ -65,37 +64,38 @@ resource "vsphere_virtual_machine" "vm" {
 
     customize {
       linux_options {
-        host_name = "HOSTNAME-${count.index + 1}"
-        domain    = "DOMAIN_NAME"
+        host_name = "${var.vm_name_prefix[terraform.workspace]}-${count.index + 1}"
+        domain    = var.domain[terraform.workspace]
       }
 
-        network_interface {
-      ipv4_address = "IP${count.index + 11}"
-      ipv4_netmask = 22
-         }
-    ipv4_gateway = "GAYEWAY"
-    dns_server_list = [ "DNS_IP","DNS_IP2" ]
+      network_interface {
+        ipv4_address = "${var.ipv4_address_prefix[terraform.workspace]}.${count.index + 21}"
+        ipv4_netmask = var.ipv4_net_mask[terraform.workspace]
+      }
+
+      ipv4_gateway = var.ipv4_gateway[terraform.workspace]
+      dns_server_list = var.dns_server_list[terraform.workspace]
     }
   }
-     provisioner "remote-exec" {
-        inline = [
-        "echo ${var.admin_password} | sudo -S adduser --disabled-password --gecos '' NEWUSER",
-        "sudo mkdir -p /home/NEWUSER/.ssh",
-        "sudo touch /home/NEWUSER/.ssh/authorized_keys",
-        "sudo echo '${var.NEWUSER_publickey}' > authorized_keys",
-        "sudo mv authorized_keys /home/NEWUSER/.ssh",
-        "sudo chown -R NEWUSER:NEWUSER /home/NEWUSER/.ssh",
-        "sudo chmod 700 /home/NEWUSER/.ssh",
-        "sudo chmod 600 /home/NEWUSER/.ssh/authorized_keys",
-        "echo 'NEWUSER ALL=(ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers"
+ #replace NEW_USER with the username you want
+  provisioner "remote-exec" {
+       inline = [
+        "echo ${var.admin_password[terraform.workspace]} | sudo -S adduser --disabled-password --gecos '' NEW_USER",
+        "sudo mkdir -p /home/NEW_USER/.ssh",
+        "sudo touch /home/NEW_USER/.ssh/authorized_keys",
+        "sudo echo '${var.NEW_USER_publickey[terraform.workspace]}' > authorized_keys",
+        "sudo mv authorized_keys /home/NEW_USER/.ssh",
+        "sudo chown -R NEW_USER:NEW_USER /home/NEW_USER/.ssh",
+        "sudo chmod 700 /home/NEW_USER/.ssh",
+        "sudo chmod 600 /home/NEW_USER/.ssh/authorized_keys",
+        "echo 'ersinkaya ALL=(ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers"
    ]
 
      connection{
       type      = "ssh"
-      user      = var.admin_user_name
-      password  = var.admin_password
+      user      = var.admin_user_name[terraform.workspace]
+      password  = var.admin_password[terraform.workspace]
       host      = self.default_ip_address
     }
   }
 }
-
