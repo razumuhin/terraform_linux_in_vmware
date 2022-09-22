@@ -68,7 +68,7 @@ resource "vsphere_virtual_machine" "vm" {
         domain    = var.domain[terraform.workspace]
       }
 
-         network_interface {
+      network_interface {
         ipv4_address = "${var.ipv4_address_prefix[terraform.workspace]}.${count.index + 21}"
         ipv4_netmask = var.ipv4_net_mask[terraform.workspace]
       }
