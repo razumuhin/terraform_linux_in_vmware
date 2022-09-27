@@ -69,7 +69,7 @@ resource "vsphere_virtual_machine" "vm" {
       }
 
       network_interface {
-        ipv4_address = "${var.ipv4_address_prefix[terraform.workspace]}.${count.index + 21}"
+        ipv4_address = "${var.ipv4_address_prefix[terraform.workspace]}.${count.index + var.machine_name_start_index[terraform.workspace]}"
         ipv4_netmask = var.ipv4_net_mask[terraform.workspace]
       }
 
