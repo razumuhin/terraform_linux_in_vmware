@@ -86,5 +86,13 @@ variable "ipv4_gateway" {
 variable "dns_server_list" {
   type = map(list(string))
 }
+variable "host_name_prefix" {
+  type = map(string)
+}
+
+variable "machine_name_start_index" {
+  type = map(number)
+}
+
 
 
