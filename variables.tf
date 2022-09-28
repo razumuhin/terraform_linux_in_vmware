@@ -35,10 +35,6 @@ variable "datastore_cluster" {
   type = map(string)
 }
 
-variable "datastore" {
-  type = map(string)
-}
-
 variable "resource_pool" {
   type = map(string)
 }
