@@ -15,11 +15,6 @@ data "vsphere_datastore_cluster" "datastore_cluster" {
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
-data "vsphere_datastore" "lun01" {
-  name          = var.datastore[terraform.workspace]
-  datacenter_id = data.vsphere_datacenter.dc.id
-}
-
 data "vsphere_resource_pool" "pool" {
   name          = var.resource_pool[terraform.workspace]
   datacenter_id = data.vsphere_datacenter.dc.id
