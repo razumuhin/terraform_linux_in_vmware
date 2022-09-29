@@ -1,8 +1,14 @@
 # terraform_linux_in_vmware
 create linux vm in vmware via terraform
-You can create new machines on separate inventory by working with workspace. Edit the var.tf file according to your inventory information.
-note: Make sure you have created the workspace before running the terrafomu code.
+You can create new machines on separate inventory by working with workspace.
+note: Make sure you have created the workspace before running the terrafom code.
+
+In this project, using a linux template server in our vmware virtualization platform, multiple workspaces can be created via terraform.
+A sample template has been prepared for you to create virtual servers.
+If you wish, you can also work in a single workspace.
+all you have to do is edit the terraform.tfvars file according to your environment.
+
+NOTE: In the prepared scenario, a user named "template" was created and its password was set as :123456Aa.
+then create a new user for system security and generate ssh-keygen for this user and use this public key and enter your terraform.tfvar file
 
 
-*workspace ile çalışarak ayrı inventory ler üzerinde yeni makinalar oluşturabilirsiniz. var.tf dosyasını kendi inventory bilgilerinize göre editleyin.
-not:terrafomu kodunu çalıştırmadan önce workspace yarattığınıza emin olun.
