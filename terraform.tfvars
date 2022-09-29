@@ -28,7 +28,7 @@ instance_count = {
     workspace2 = NUMBER OF MACHINES YOU WANT
 }
 
-ersinkaya_publickey = { 
+newuser_publickey = { 
     workspace1 = "PUBLIC SSH KEY YOU CREATED"
     workspace2 = "PUBLIC SSH KEY YOU CREATED" 
 }
