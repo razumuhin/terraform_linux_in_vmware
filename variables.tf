@@ -90,5 +90,12 @@ variable "machine_name_start_index" {
   type = map(number)
 }
 
-
+variable "template_name" {
+  type = map(string)
+  
+}
+variable "second_disk_size" {
+  type = map(number)
+  
+}
 
