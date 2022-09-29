@@ -73,13 +73,13 @@ vm_folder = {
 }
 
 num_of_cpus = {
-    workspace1 = 2
-    workspace2 = 2
+    workspace1 = Number OF CPU
+    workspace2 = Number Of CPU
 }
 
 memory_size = {
-    workspace1 = 4096
-    workspace2 = 4096
+    workspace1 = Number OF Memory
+    workspace2 = Number OF Memory
 }
 
 domain = {
@@ -88,8 +88,8 @@ domain = {
 }
 
 ipv4_address_prefix = {
-    workspace1 = "10.44.1"
-    workspace2 = "10.44.1"
+    workspace1 = "Ip adrees prefix exmaple 192.168.1"
+    workspace2 = "IP adrees prefix example 10.10.5"
 }
 
 ipv4_net_mask = {
@@ -117,6 +117,11 @@ machine_name_start_index = {
 }
 
 template_name = {
-    workspace1 = "template-ubuntu-20.04"
-    workspace2 = "template-ubuntu-20.04"
+    workspace1 = "Your Template name in your vmware inventory"
+    workspace2 = "Your Template name in your inventory"
 }
+#second_disk_size = {
+#  workspace1 = 10
+#  workspace2 = 20
+#}
+
