@@ -23,7 +23,7 @@ variable "instance_count"{
     type = map(number)
 }
 
-variable "ersinkaya_publickey" {
+variable "New_User_publickey" {
     type = map(string)
 }
 
