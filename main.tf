@@ -30,6 +30,14 @@ data "vsphere_virtual_machine" "template" {
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
+data "vsphere_tag" "tag-all" {
+  name = var.tag-all[terraform.workspace]
+  category_id = data.vsphere_tag_category.all-tag-category.id
+}
+data "vsphere_tag_category" "backup-tag-category"{
+  name = var.backup-category[terraform.workspace]
+}
+
 resource "vsphere_virtual_machine" "vm" {
   count = var.instance_count[terraform.workspace]
   name             = var.machine_name_start_index[terraform.workspace] + count.index + 1<100 ? "${var.ipv4_address_prefix[terraform.workspace]}.0${var.machine_name_start_index[terraform.workspace] + count.index + 1}-${var.vm_name_prefix[terraform.workspace]}-${count.index + 1}" : "${var.ipv4_address_prefix[terraform.workspace]}.${var.machine_name_start_index[terraform.workspace] + count.index}-${var.vm_name_prefix[terraform.workspace]}-${count.index + 1}"
@@ -78,6 +86,9 @@ resource "vsphere_virtual_machine" "vm" {
       dns_server_list = var.dns_server_list[terraform.workspace]
     }
   }
+    tags = [
+      data.vsphere_tag.tag-all.id
+   ]
  #replace NEW_USER with the username you want
   provisioner "remote-exec" {
        inline = [

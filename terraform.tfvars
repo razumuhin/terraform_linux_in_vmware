@@ -24,8 +24,8 @@ vsphere_server_name = {
 }
 
 instance_count = { 
-    workspace1 = NUMBER OF MACHINES  YOU WANT
-    workspace2 = NUMBER OF MACHINES YOU WANT
+    workspace1 = "NUMBER OF MACHINES  YOU WANT"
+    workspace2 = "NUMBER OF MACHINES YOU WANT"
 }
 
 newuser_publickey = { 
@@ -73,13 +73,13 @@ vm_folder = {
 }
 
 num_of_cpus = {
-    workspace1 = Number OF CPU
-    workspace2 = Number Of CPU
+    workspace1 = "Number OF CPU"
+    workspace2 = "Number Of CPU"
 }
 
 memory_size = {
-    workspace1 = Number OF Memory
-    workspace2 = Number OF Memory
+    workspace1 = "Number OF Memory"
+    workspace2 = "Number OF Memory"
 }
 
 domain = {
@@ -93,8 +93,8 @@ ipv4_address_prefix = {
 }
 
 ipv4_net_mask = {
-    workspace1 = 22
-    workspace2 = 22
+    workspace1 = "your netmask"
+    workspace2 = "your netmask"
 }
 
 ipv4_gateway = {
@@ -112,8 +112,8 @@ disk_label = {
 }
 
 machine_name_start_index = {
-    workspace1 = NUMBER YOU WANT 
-    workspace2 = NUMBER YOU WANT
+    workspace1 = "NUMBER YOU WANT" 
+    workspace2 = "NUMBER YOU WANT"
 }
 
 template_name = {
@@ -124,4 +124,11 @@ template_name = {
 #  workspace1 = 10
 #  workspace2 = 20
 #}
-
+all-category = {
+    workspace1 = "all"
+    workspace2 = "all"
+}
+tag-all = {
+    workspace1 = "tagname"
+    workspace2 = "tagname"
+}
