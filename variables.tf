@@ -98,4 +98,10 @@ variable "second_disk_size" {
   type = map(number)
   
 }
+variable "all-category" {
+  type = map(string)
+}
+variable "tag-all" {
+  type = map(string)
+}
 
