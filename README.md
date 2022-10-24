@@ -1,4 +1,4 @@
-# terraform_linux_in_vmware
+# terraform_linux_in_vmware from template
 create linux vm in vmware via terraform
 You can create new machines on separate inventory by working with workspace.
 note: Make sure you have created the workspace before running the terrafom code.
